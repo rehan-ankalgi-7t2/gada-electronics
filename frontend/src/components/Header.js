@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
   return (
@@ -14,22 +15,30 @@ const Header = () => {
         style={{ backgroundColor: "black", color: "white" }}
       >
         <Container>
-          <Navbar.Brand href="#home">
-            <strong>Rehoshop</strong>
-          </Navbar.Brand>
+          <LinkContainer to={"/"}>
+            <Navbar.Brand>
+              <strong>Rehoshop</strong>
+            </Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link href="#home" active>
-                Home
-              </Nav.Link>
-              <Nav.Link href="#link">About</Nav.Link>
-              <Nav.Link href="#link">
-                Cart <FaShoppingCart />
-              </Nav.Link>
-              <Nav.Link href="#link">
-                Login <FaUser />
-              </Nav.Link>
+              <LinkContainer to={"/"}>
+                <Nav.Link active>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={"/about"}>
+                <Nav.Link>About</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={"/cart"}>
+                <Nav.Link>
+                  Cart <FaShoppingCart />
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={"/login"}>
+                <Nav.Link href="#link">
+                  Login <FaUser />
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>
