@@ -12,6 +12,8 @@ import {
 } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
+import { ThemeProvider } from "@mui/material";
+import theme from "./utils/globalTheme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +27,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
