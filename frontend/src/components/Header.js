@@ -1,7 +1,8 @@
 import React from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Image } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
+import Jetha from "../assets/images/jetha-logo.png";
 
 const Header = () => {
   return (
@@ -17,7 +18,13 @@ const Header = () => {
         <Container>
           <LinkContainer to={"/"}>
             <Navbar.Brand>
-              <strong>Rehoshop</strong>
+              <Image
+                src={Jetha}
+                alt="Jethalal logo"
+                style={{ height: "48px", borderRadius: "100px" }}
+                className="me-3"
+              />
+              <strong>Gada Electronics</strong>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

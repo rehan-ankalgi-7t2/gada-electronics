@@ -6,7 +6,9 @@ const Footer = () => {
   return (
     <footer style={{ backgroundColor: "black" }}>
       <Row>
-        <Col className="text-center py-3">Rehoshop copy; {currentYear}</Col>
+        <Col className="text-center py-3">
+          Gada Electronics &copy; {currentYear}
+        </Col>
       </Row>
     </footer>
   );

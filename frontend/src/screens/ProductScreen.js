@@ -1,18 +1,26 @@
-import { Button, Divider } from "@mui/material";
-import React from "react";
+import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import products from "../products";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "../components/Rating";
 import { List, ListItem } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import axios from "axios";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
-  const product = products.find((p) => p._id === productId);
-  console.log(product);
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const getProductDetails = async () => {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    };
+
+    getProductDetails();
+  }, []);
 
   return (
     <>
@@ -52,7 +60,6 @@ const ProductScreen = () => {
             <ListItem disablePadding>
               Status: {product.countInStock > 0 ? "In Stock" : "Out of stock"}
             </ListItem>
-            <divider />
             <ListItem disablePadding className="mt-4">
               <Col>
                 <Button
@@ -69,6 +76,7 @@ const ProductScreen = () => {
                   color="white"
                   variant="contained"
                   endIcon={<AddShoppingCartIcon />}
+                  disabled={product.countInStock < 0}
                 >
                   Add to cart
                 </Button>
