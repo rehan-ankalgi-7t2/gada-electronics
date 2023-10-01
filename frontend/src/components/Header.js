@@ -9,11 +9,7 @@ const Header = () => {
     <header>
       <Navbar
         expand="lg"
-        // bg="dark"
-        // variant="dark"
-        data-bs-theme="dark"
-        // className="bg-body-tertiary"
-        style={{ backgroundColor: "black", color: "white" }}
+        style={{ backgroundColor: "#F5F5F5", color: "black" }}
       >
         <Container>
           <LinkContainer to={"/"}>

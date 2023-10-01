@@ -62,7 +62,7 @@ const Rating = ({ value, text }) => {
 };
 
 const ratingStarStyle = {
-  color: "yellow",
+  color: "#FFA500",
 };
 
 export default Rating;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { Outlet } from "react-router";
-import ResponsiveAppBar from "./components/Appbar";
+// import ResponsiveAppBar from "./components/Appbar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
@@ -10,10 +10,8 @@ const App = () => {
     <>
       <Header />
       {/* <ResponsiveAppBar /> */}
-      <main className="py-3">
-        <Container>
-          <Outlet />
-        </Container>
+      <main>
+        <Outlet />
       </main>
       <Footer />
     </>

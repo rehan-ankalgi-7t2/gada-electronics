@@ -7,16 +7,17 @@ import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 
 const Product = ({ product }) => {
   return (
-    <Card
-      className="my-3"
-      style={{ backgroundColor: "black", color: "white", borderRadius: "0" }}
-    >
+    <Card className="my-3" style={{ borderRadius: "0" }}>
       <Link to={`/products/${product._id}`}>
-        <Card.Img variant="top" src={product.image} />
+        <Card.Img
+          style={{ borderRadius: "0" }}
+          variant="top"
+          src={product.image}
+        />
       </Link>
       <Card.Body>
         <Link
-          style={{ textDecoration: "none", color: "white" }}
+          style={{ textDecoration: "none", color: "black" }}
           to={`/products/${product._id}`}
         >
           <Card.Title>{product.name}</Card.Title>
@@ -33,8 +34,8 @@ const Product = ({ product }) => {
           ${product.price}
         </Card.Text>
         <Button
-          variant="outlined"
-          color="white"
+          variant="contained"
+          color="appleBlack"
           sx={{
             display: "flex",
             alignItems: "center",
@@ -42,9 +43,11 @@ const Product = ({ product }) => {
             padding: "16px",
             width: "100%",
             borderRadius: "0",
-            color: "white",
+            color: "white !important",
+            backgroundColor: "black",
           }}
           endIcon={<AddShoppingCart />}
+          disableElevation
         >
           Add to Cart
         </Button>

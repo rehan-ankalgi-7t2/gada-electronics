@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 // import products from "../products";
 import Product from "../components/Product";
 import axios from "axios";
+import Hero from "../components/Hero";
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([]);
@@ -18,14 +19,17 @@ const HomeScreen = () => {
 
   return (
     <div>
-      <h1>Latest Products</h1>
-      <Row mb="3">
-        {products?.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      <Hero />
+      <Container className="my-5">
+        <h1>Latest Products</h1>
+        <Row mb="3">
+          {products?.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };
