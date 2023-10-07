@@ -1,8 +1,9 @@
 import React from "react";
 import { Nav, Navbar, Container, Image } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { LinkContainer } from "react-router-bootstrap";
 import Jetha from "../assets/images/jetha-logo.png";
+import { Button } from "@mui/material";
 
 const Header = () => {
   return (
@@ -25,7 +26,7 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
+            <Nav className="ms-auto align-items-center gap-3">
               <LinkContainer to={"/"}>
                 <Nav.Link active>Home</Nav.Link>
               </LinkContainer>
@@ -34,12 +35,19 @@ const Header = () => {
               </LinkContainer>
               <LinkContainer to={"/cart"}>
                 <Nav.Link>
-                  Cart <FaShoppingCart />
+                  Cart <ShoppingCartOutlinedIcon />
                 </Nav.Link>
               </LinkContainer>
               <LinkContainer to={"/login"}>
                 <Nav.Link href="#link">
-                  Login <FaUser />
+                  <Button
+                    variant="contained"
+                    color="yellow"
+                    disableElevation
+                    sx={{ color: "white" }}
+                  >
+                    Login
+                  </Button>
                 </Nav.Link>
               </LinkContainer>
             </Nav>

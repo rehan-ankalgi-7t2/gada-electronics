@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-// import products from "../products";
 import Product from "../components/Product";
 import axios from "axios";
 import Hero from "../components/Hero";
@@ -11,7 +10,8 @@ const HomeScreen = () => {
   useEffect(() => {
     const getAllProducts = async () => {
       const { data } = await axios.get("/api/products");
-      setProducts(data);
+      setProducts(data.products);
+      // console.log(data.products);
     };
 
     getAllProducts();

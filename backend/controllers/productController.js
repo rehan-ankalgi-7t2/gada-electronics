@@ -11,18 +11,13 @@ const getAllProducts = asyncHandler(async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).json({
-        message: "Empty Collection, no products found",
-        success: true,
-      });
+      res.status(404);
+      throw new Error("Empty Collection, no products found");
     }
   } catch (error) {
     // throw new Error(error);
-    res.status(400).json({
-      message: "An Unknown error occured",
-      error: error,
-      success: false,
-    });
+    res.status(404);
+    throw new Error(error);
   }
 });
 
@@ -38,18 +33,13 @@ const getProductById = asyncHandler(async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).json({
-        message: "no products found",
-        success: true,
-      });
+      res.status(404);
+      throw new Error("Product not found");
     }
   } catch (error) {
     // throw new Error(error);
-    res.status(400).json({
-      message: "An Unknown error occured",
-      error: error,
-      success: false,
-    });
+    res.status(404);
+    throw new Error(error);
   }
 });
 

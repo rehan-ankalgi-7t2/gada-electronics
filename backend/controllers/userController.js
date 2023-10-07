@@ -10,18 +10,12 @@ const getAllUsers = asyncHandler(async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).json({
-        message: "Empty Collection, no users found",
-        success: true,
-      });
+      res.status(404);
+      throw new Error("Empty Collection, no users found");
     }
   } catch (error) {
-    // throw new Error(error);
-    res.status(400).json({
-      message: "An Unknown error occured",
-      error: error,
-      success: false,
-    });
+    res.status(404);
+    throw new Error(error);
   }
 });
 
@@ -37,18 +31,12 @@ const getUserById = asyncHandler(async (req, res) => {
         success: true,
       });
     } else {
-      res.status(404).json({
-        message: "no users found",
-        success: true,
-      });
+      res.status(404);
+      throw new Error("no users found");
     }
   } catch (error) {
-    // throw new Error(error);
-    res.status(400).json({
-      message: "An Unknown error occured",
-      error: error,
-      success: false,
-    });
+    res.status(404);
+    throw new Error(error);
   }
 });
 
