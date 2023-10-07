@@ -23,7 +23,14 @@ const Hero = () => {
               flexFlow: "column",
             }}
           >
-            <h1 style={{ fontSize: "60px" }}>
+            <h1
+              style={{
+                fontSize: "60px",
+                fontFamily: "'Luckiest Guy', cursive",
+                WebkitTextStrokeColor: "#00000088",
+                WebkitTextStrokeWidth: "4px",
+              }}
+            >
               Gada Electronics me aapka swagat hai
             </h1>
             <h5>Special products ekdam bhav to bhav price me</h5>
