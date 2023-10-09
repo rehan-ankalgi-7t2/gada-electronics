@@ -16,12 +16,16 @@ import { ThemeProvider } from "@mui/material";
 import theme from "./utils/globalTheme";
 import { Provider } from "react-redux";
 import store from "./store";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/products/:id" element={<ProductScreen />} />
+      <Route path="/login" element={<LoginScreen />} />
+      <Route path="/register" element={<RegisterScreen />} />
     </Route>
   )
 );
