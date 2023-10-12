@@ -69,7 +69,11 @@ const authUser = asyncHandler(async (req, res) => {
     if (await user.matchPassword(password)) {
       generateToken(res, user._id);
       res.status(200).json({
-        userData: user,
+        userData: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+        },
         success: true,
       });
     } else {
@@ -98,4 +102,37 @@ const logUserOut = (req, res) => {
   });
 };
 
-export { getAllUsers, getUserById, authUser, logUserOut };
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const isUserExists = await User.findOne({ email });
+
+  if (isUserExists) {
+    res.status(400);
+    throw new Error("User aLready exists!");
+  } else {
+    const user = await User.create({
+      name,
+      email,
+      password,
+    });
+
+    if (user) {
+      generateToken(res, user._id);
+      res.status(201).json({
+        createdUser: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+        },
+        success: true,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Invalid user data");
+    }
+  }
+});
+
+export { getAllUsers, getUserById, authUser, logUserOut, registerUser };
