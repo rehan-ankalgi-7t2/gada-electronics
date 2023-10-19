@@ -3,9 +3,12 @@ import { Nav, Navbar, Container, Image } from "react-bootstrap";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { LinkContainer } from "react-router-bootstrap";
 import Jetha from "../assets/images/jetha-logo.png";
-import { Button } from "@mui/material";
+import { Badge, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+
   return (
     <header>
       <Navbar
@@ -35,7 +38,14 @@ const Header = () => {
               </LinkContainer>
               <LinkContainer to={"/cart"}>
                 <Nav.Link>
-                  Cart <ShoppingCartOutlinedIcon />
+                  Cart
+                  <Badge
+                    badgeContent={cartItems.reduce((a, c) => a + c.qty, 0)}
+                    max={9}
+                    color="yellow"
+                  >
+                    <ShoppingCartOutlinedIcon />
+                  </Badge>
                 </Nav.Link>
               </LinkContainer>
               <LinkContainer to={"/login"}>

@@ -18,7 +18,7 @@ const ProductScreen = () => {
   const { id: productId } = useParams();
   const { data, isLoading, error } = useGetProductDetailsQuery(productId);
   const product = data?.productData[0];
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
