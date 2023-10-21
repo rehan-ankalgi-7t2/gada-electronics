@@ -40,7 +40,10 @@ const Header = () => {
                 <Nav.Link>
                   Cart
                   <Badge
-                    badgeContent={cartItems.reduce((a, c) => a + c.qty, 0)}
+                    badgeContent={cartItems.reduce(
+                      (a, c) => a + Number(c.qty),
+                      0
+                    )}
                     max={9}
                     color="yellow"
                   >

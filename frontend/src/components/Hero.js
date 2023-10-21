@@ -8,7 +8,9 @@ const Hero = () => {
     <div
       style={{
         height: "fit-content",
-        backgroundColor: "#FFA500",
+        // backgroundColor: "#FFA500",
+        background:
+          "repeating-radial-gradient(circle at bottom right, #F59E0B, #e36048 16%)",
         color: "white",
       }}
     >
@@ -26,9 +28,8 @@ const Hero = () => {
             <h1
               style={{
                 fontSize: "60px",
-                fontFamily: "'Luckiest Guy', cursive",
-                WebkitTextStrokeColor: "#00000088",
-                WebkitTextStrokeWidth: "4px",
+                // WebkitTextStrokeColor: "#00000088",
+                // WebkitTextStrokeWidth: "4px",
               }}
             >
               Gada Electronics me aapka swagat hai
@@ -45,7 +46,14 @@ const Hero = () => {
             </Button>
           </Col>
           <Col>
-            <Image fluid src={JethalalPortrait} alt={"Jethalal's Portrait"} />
+            <Image
+              fluid
+              src={JethalalPortrait}
+              alt={"Jethalal's Portrait"}
+              style={{
+                filter: "drop-shadow(0 0rem 2rem rgba(0, 0, 0, 0.24))",
+              }}
+            />
           </Col>
         </Row>
       </Container>
