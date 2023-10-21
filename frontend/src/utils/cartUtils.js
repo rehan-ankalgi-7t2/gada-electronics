@@ -3,28 +3,35 @@ export const addDecimals = (num) => {
 };
 
 export const updateCart = (state) => {
-  // calculate item price
-  state.itemPrice = addDecimals(
-    state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-  );
-  console.log(state.itemPrice);
+  // Calculate the items price in whole number (pennies) to avoid issues with
+  // floating point number calculations
+  const itemsPrice = state.cartItems.reduce((acc, item) => {
+    // console.log(`item price ${item.price}`);
+    // console.log(`item qty ${item.qty}`);
+    return acc + (item.price * 100 * item.qty) / 100;
+  }, 0);
+
+  state.itemsPrice = addDecimals(itemsPrice);
+  // console.log(state.itemPrice);
 
   /**
    * @description calculate shipping price
    * @summary if itemPrice is > 199 then the shipping is free else shipping price is 10
    */
-  // calculate shipping price
-  state.shippingPrice = addDecimals(state.itemPrice > 199 ? 0 : 10);
+  // Calculate the shipping price
+  const shippingPrice = itemsPrice > 100 ? 0 : 10;
+  state.shippingPrice = addDecimals(shippingPrice);
 
-  // calculate taxxed price
-  state.taxPrice = addDecimals(Number(0.15 * state.itemPrice).toFixed(2));
+  // Calculate the tax price
+  const taxPrice = 0.15 * itemsPrice;
+  state.taxPrice = addDecimals(taxPrice);
 
-  // calculate total price
-  state.totalPrice = (
-    Number(state.itemPrice) +
-    Number(state.shippingPrice) +
-    Number(state.taxPrice)
-  ).toFixed(2);
+  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  // Calculate the total price
+  state.totalPrice = addDecimals(totalPrice);
 
+  // Save the cart to localStorage
   localStorage.setItem("cart", JSON.stringify(state));
+
+  return state;
 };

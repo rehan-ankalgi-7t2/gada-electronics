@@ -15,11 +15,26 @@ import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCh
 import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, Button } from "@mui/material";
+import { addItemToCart, removeItemFromCart } from "../slices/cartSlice";
 
 const CartScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
+
+  const addToCartHandler = async (product, qty) => {
+    dispatch(addItemToCart({ ...product, qty }));
+    // console.log(`qty: ${qty}`);
+    // console.log(e.target.value);
+  };
+
+  const removeFromCartHandler = async (id) => {
+    dispatch(removeItemFromCart(id));
+  };
+
+  const proceedToCheckOutHandler = () => {
+    navigate("/login?redirect=/shipping");
+  };
 
   return (
     <Container className="my-5">
@@ -56,7 +71,9 @@ const CartScreen = () => {
                       <Form.Control
                         as="select"
                         value={item.qty}
-                        onChange={(e) => {}}
+                        onChange={(e) =>
+                          addToCartHandler(item, Number(e.target.value))
+                        }
                       >
                         {/**
                          * @description
@@ -74,7 +91,11 @@ const CartScreen = () => {
                       </Form.Control>
                     </Col>
                     <Col>
-                      <IconButton color="orange" size="large">
+                      <IconButton
+                        color="orange"
+                        size="large"
+                        onClick={() => removeFromCartHandler(item._id)}
+                      >
                         <DeleteOutlineOutlinedIcon color="inherit" />
                       </IconButton>
                     </Col>
@@ -119,6 +140,8 @@ const CartScreen = () => {
                         display: "inline-block",
                         height: "80px",
                       }}
+                      disabled={cartItems.length === 0}
+                      onClick={proceedToCheckOutHandler}
                     >
                       Proceed to checkout
                     </Button>
