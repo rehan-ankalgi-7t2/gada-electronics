@@ -135,4 +135,42 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllUsers, getUserById, authUser, logUserOut, registerUser };
+/**
+ * @description get user profile
+ * @route GET /api/users/profile
+ * @access private
+ */
+const getUserProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({
+      userData: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+      success: true,
+    });
+  }
+});
+
+/**
+ * @description get user profile
+ * @route  PUT /api/users/profile
+ * @access private
+ */
+const updateUserProfile = asyncHandler(async (req, res) => {
+  res.send("udpate profile");
+});
+
+export {
+  getAllUsers,
+  getUserById,
+  authUser,
+  logUserOut,
+  registerUser,
+  updateUserProfile,
+  getUserProfile,
+};

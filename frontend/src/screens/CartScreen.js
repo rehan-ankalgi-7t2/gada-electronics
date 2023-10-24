@@ -16,6 +16,7 @@ import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, Button } from "@mui/material";
 import { addItemToCart, removeItemFromCart } from "../slices/cartSlice";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const CartScreen = () => {
   const navigate = useNavigate();
@@ -37,9 +38,19 @@ const CartScreen = () => {
   };
 
   return (
-    <Container className="my-5">
+    <Container className="my-5" style={{ minHeight: "88vh" }}>
       <Row>
         <Col>
+          <Link to="/">
+            <Button
+              startIcon={<ArrowBackIosNewIcon />}
+              className="my-3"
+              color="appleBlack"
+              // variant="outlined"
+            >
+              Back to shopping
+            </Button>
+          </Link>
           <h1>Aapka shopping Cart 🛒</h1>
           <h3>Items</h3>
         </Col>
@@ -114,7 +125,8 @@ const CartScreen = () => {
               <ListGroupItem>
                 <Row>
                   <Col>
-                    {cartItems.reduce((acc, item) => acc + item.qty, 0)} Items
+                    {cartItems.reduce((acc, item) => acc + Number(item.qty), 0)}{" "}
+                    Items
                   </Col>
                   <Col>
                     <strong>
