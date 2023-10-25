@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
  * @description generate jwt token to authorize the userand set cookie for 30days
  */
 const generateToken = (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ userId: userId }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
 

@@ -53,7 +53,7 @@ const getUserById = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description fetch all the users from the database
+ * @description authenticate user by logging in
  * @route /api/users/login
  * @access public
  * @param {*} email
@@ -141,18 +141,19 @@ const registerUser = asyncHandler(async (req, res) => {
  * @access private
  */
 const getUserProfile = asyncHandler(async (req, res) => {
+  console.log(req.user);
   const user = await User.findById(req.user._id);
 
   if (user) {
-    res.status(200).json({
-      userData: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      },
-      success: true,
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
     });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
 });
 
