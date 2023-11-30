@@ -34,9 +34,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;
-    const fetchedUser = await User.find({
-      _id: id,
-    });
+    const fetchedUser = await User.findById(req.params.id).select("-password");
     if (fetchedUser) {
       res.status(200).json({
         userData: fetchedUser,
@@ -65,26 +63,20 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user) {
-    if (await user.matchPassword(password)) {
-      generateToken(res, user._id);
-      res.status(200).json({
-        userData: {
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-        },
-        success: true,
-      });
-    } else {
-      res.status(401).json({
-        message: "not authenticated! token failed",
-        success: false,
-      });
-    }
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+    res.status(200).json({
+      userData: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+      success: true,
+    });
   } else {
     res.status(401).json({
-      message: "user not found",
+      message: "not authenticated! token failed",
       success: false,
     });
   }
@@ -141,11 +133,11 @@ const registerUser = asyncHandler(async (req, res) => {
  * @access private
  */
 const getUserProfile = asyncHandler(async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   const user = await User.findById(req.user._id);
 
   if (user) {
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,

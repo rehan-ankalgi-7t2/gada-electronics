@@ -12,11 +12,12 @@ import { protect, admin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route("/").get(protect, getAllUsers);
-router.route("/:id").get(getUserById);
+router.route("/").get(protect, admin, getAllUsers);
 router.route("/login").post(authUser);
 router.route("/logout").post(logUserOut);
 router.route("/register").post(registerUser);
-router.route("/profile").get(getUserProfile);
+router.route("/profile").get(protect, getUserProfile);
+
+router.route("/:id").get(protect, admin, getUserById);
 
 export default router;
