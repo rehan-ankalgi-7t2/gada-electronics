@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Navbar, Container, Image } from "react-bootstrap";
+import { Nav, Navbar, Container, Image, NavDropdown } from "react-bootstrap";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { LinkContainer } from "react-router-bootstrap";
 import Jetha from "../assets/images/jetha-logo.png";
@@ -17,9 +17,10 @@ import {
 } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { PersonAdd, Logout, Settings } from "@mui/icons-material";
-import { logUserOut } from "../slices/authSlice";
+import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logoutApiCall().unwrap();
-      dispatch(logUserOut({}));
+      dispatch(logout({}));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -115,6 +116,20 @@ const Header = () => {
                     Login
                   </Button>
                 </LinkContainer>
+              )}
+              {/* Admin Links */}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <NavDropdown.Item as={Link} to='/admin/productlist'>
+                    Products
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='/admin/orderlist'>
+                    Orders
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='/admin/userlist'>
+                    Users
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

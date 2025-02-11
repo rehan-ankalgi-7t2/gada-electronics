@@ -15,7 +15,13 @@ import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCh
 import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, Button } from "@mui/material";
-import { addItemToCart, removeItemFromCart } from "../slices/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  saveShippingAddress,
+  savePaymentMethod,
+  clearCartItems,
+  resetCart, } from "../slices/cartSlice";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const CartScreen = () => {
@@ -24,13 +30,13 @@ const CartScreen = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const addToCartHandler = async (product, qty) => {
-    dispatch(addItemToCart({ ...product, qty }));
+    dispatch(addToCart({ ...product, qty }));
     // console.log(`qty: ${qty}`);
     // console.log(e.target.value);
   };
 
   const removeFromCartHandler = async (id) => {
-    dispatch(removeItemFromCart(id));
+    dispatch(removeFromCart(id));
   };
 
   const proceedToCheckOutHandler = () => {

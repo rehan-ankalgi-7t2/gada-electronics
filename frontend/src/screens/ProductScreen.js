@@ -12,18 +12,24 @@ import Message from "../components/Message";
 import { Form } from "react-bootstrap";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../slices/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  saveShippingAddress,
+  savePaymentMethod,
+  clearCartItems,
+  resetCart, } from "../slices/cartSlice";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
   const { data, isLoading, error } = useGetProductDetailsQuery(productId);
-  const product = data?.productData[0];
+  const product = data;
   const [qty, setQty] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    dispatch(addItemToCart({ ...product, qty }));
+    dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
   };
 
@@ -51,31 +57,31 @@ const ProductScreen = () => {
           // console.log(data?.productData[0])
           <Row>
             <Col md={8}>
-              <Image src={product.image} fluid />
+              <Image src={product?.image} fluid />
             </Col>
             <Col md={4}>
               <List>
                 <ListItem disablePadding>
                   <Col>
-                    <h3>{product.name}</h3>
+                    <h3>{product?.name}</h3>
                   </Col>
                 </ListItem>
                 <ListItem disablePadding>
                   <Col>
                     <Rating
-                      value={product.rating}
-                      text={`${product.numReviews} reviews`}
+                      value={product?.rating || 5}
+                      text={`${product?.numReviews} reviews`}
                     />
                   </Col>
                 </ListItem>
                 <ListItem disablePadding>
                   <Col>
-                    <h4>${product.price}</h4>
+                    <h4>${product?.price}</h4>
                   </Col>
                 </ListItem>
                 <ListItem disablePadding>
                   Status:{" "}
-                  {product.countInStock > 0 ? "In Stock" : "Out of stock"}
+                  {product?.countInStock > 0 ? "In Stock" : "Out of stock"}
                 </ListItem>
                 {product.countInStock > 0 && (
                   <ListItem>
@@ -95,7 +101,7 @@ const ProductScreen = () => {
                            *
                            * @summary So, overall, this code generates a dropdown list with options ranging from 1 to product.countInStock, allowing the user to select a quantity within the available stock range.
                            */}
-                          {[...Array(product.countInStock).keys()].map((x) => (
+                          {[...Array(product?.countInStock || 0).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>
@@ -121,7 +127,7 @@ const ProductScreen = () => {
                       color="white"
                       variant="contained"
                       endIcon={<AddShoppingCartIcon />}
-                      disabled={product.countInStock < 0}
+                      disabled={product?.countInStock < 0}
                       onClick={addToCartHandler}
                     >
                       Add to cart
@@ -130,7 +136,7 @@ const ProductScreen = () => {
                 </ListItem>
                 <ListItem disablePadding className="mt-3">
                   <Col>
-                    <p>{product.description}</p>
+                    <p>{product?.description}</p>
                   </Col>
                 </ListItem>
               </List>
