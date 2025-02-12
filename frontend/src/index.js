@@ -21,7 +21,6 @@ import RegisterScreen from "./screens/RegisterScreen";
 import CartScreen from "./screens/CartScreen";
 import AdminLoginScreen from "./screens/AdminLoginScreen";
 import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
 import PrivateRoute from "./screens/PrivateRoute";
 import { HelmetProvider } from "react-helmet-async";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
@@ -33,6 +32,8 @@ import ProductListScreen from "./screens/admin/ProductListScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
 import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,7 +74,9 @@ root.render(
     <HelmetProvider>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
       </ThemeProvider>
     </Provider>
     </HelmetProvider>

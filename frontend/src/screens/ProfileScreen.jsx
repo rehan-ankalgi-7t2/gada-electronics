@@ -53,7 +53,7 @@ const ProfileScreen = () => {
     };
 
     return (
-        <Row>
+        <Row className='p-4'>
             <Col md={3}>
                 <h2>User Profile</h2>
 

@@ -12,10 +12,10 @@ const PaymentScreen = () => {
     const { shippingAddress } = cart;
 
     useEffect(() => {
-        if (!shippingAddress.address) {
+        if (!shippingAddress.shippingAddress.address) {
             navigate('/shipping');
         }
-    }, [navigate, shippingAddress]);
+    }, [navigate, shippingAddress.shippingAddress.address]);
 
     const [paymentMethod, setPaymentMethod] = useState('PayPal');
 

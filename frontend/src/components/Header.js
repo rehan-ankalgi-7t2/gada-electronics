@@ -170,7 +170,7 @@ const Header = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => navigate('/profile')}>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>

@@ -12,6 +12,7 @@ import {
     useGetPaypalClientIdQuery,
     usePayOrderMutation,
 } from '../slices/orderApiSlice';
+import { Chip } from '@mui/material';
 
 const OrderScreen = () => {
     const { id: orderId } = useParams();
@@ -106,13 +107,13 @@ const OrderScreen = () => {
     ) : error ? (
         <Message variant='danger'>{error.data.message}</Message>
     ) : (
-        <>
-            <h1>Order {order._id}</h1>
+        <div className='p-4'>
+                            <Chip color='primary' label="shipping"/>
+            <h1>Order #{order._id}</h1>
             <Row>
                 <Col md={8}>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h2>Shipping</h2>
                             <p>
                                 <strong>Name: </strong> {order.user.name}
                             </p>
@@ -170,7 +171,7 @@ const OrderScreen = () => {
                                                         {item.name}
                                                     </Link>
                                                 </Col>
-                                                <Col md={4}>
+                                                <Col md={4} style={{textAlign: 'right'}}>
                                                     {item.qty} x ${item.price} = ${item.qty * item.price}
                                                 </Col>
                                             </Row>
@@ -259,7 +260,7 @@ const OrderScreen = () => {
                     </Card>
                 </Col>
             </Row>
-        </>
+        </div>
     );
 };
 

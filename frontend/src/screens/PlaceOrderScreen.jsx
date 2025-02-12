@@ -17,19 +17,28 @@ const PlaceOrderScreen = () => {
     const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
     useEffect(() => {
-        if (!cart.shippingAddress.address) {
+        if (!cart.shippingAddress.shippingAddress.address) {
             navigate('/shipping');
         } else if (!cart.paymentMethod) {
             navigate('/payment');
         }
-    }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
+    }, [cart.paymentMethod, cart.shippingAddress.shippingAddress.address, navigate]);
 
     const dispatch = useDispatch();
     const placeOrderHandler = async () => {
         try {
+            console.log({
+                orderItems: cart.cartItems,
+                    shippingAddress: cart.shippingAddress.shippingAddress,
+                    paymentMethod: cart.paymentMethod,
+                    itemsPrice: cart.itemsPrice,
+                    shippingPrice: cart.shippingPrice,
+                    taxPrice: cart.taxPrice,
+                    totalPrice: cart.totalPrice,
+            })
             const res = await createOrder({
                 orderItems: cart.cartItems,
-                shippingAddress: cart.shippingAddress,
+                shippingAddress: cart.shippingAddress.shippingAddress,
                 paymentMethod: cart.paymentMethod,
                 itemsPrice: cart.itemsPrice,
                 shippingPrice: cart.shippingPrice,
@@ -53,9 +62,9 @@ const PlaceOrderScreen = () => {
                             <h2>Shipping</h2>
                             <p>
                                 <strong>Address:</strong>
-                                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                                {cart.shippingAddress.postalCode},{' '}
-                                {cart.shippingAddress.country}
+                                {cart.shippingAddress.shippingAddress.address}, {cart.shippingAddress.shippingAddress.city}{' '}
+                                {cart.shippingAddress.shippingAddress.postalCode},{' '}
+                                {cart.shippingAddress.shippingAddress.country}
                             </p>
                         </ListGroup.Item>
 
