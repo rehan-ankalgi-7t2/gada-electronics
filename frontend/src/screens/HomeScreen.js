@@ -4,9 +4,16 @@ import Hero from "../components/Hero";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { useEffect, useState } from "react";
 
 const HomeScreen = () => {
-  const { data, isLoading, error } = useGetProductsQuery();
+  const [searchTerm, setSearchTerm] = useState("")
+  const [page, setPage] = useState(1);
+  const { data, isLoading, error } = useGetProductsQuery({ keyword: searchTerm, pageNumber: page });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div>

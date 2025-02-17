@@ -3,12 +3,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
 const protect = asyncHandler(async (req, res, next) => {
-  const token = req.cookies.jwt;
+  // console.log(req.cookies);
+  let token = req.cookies.jwt;
 
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = User.findById(decoded.userId).select({ password, isAdmin });
+      console.log(`decoded: ${decoded}`);
+      req.user = await User.findById(decoded.userId).select("-password");
 
       next();
     } catch (error) {
