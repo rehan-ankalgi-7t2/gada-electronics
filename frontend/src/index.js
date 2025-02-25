@@ -34,11 +34,13 @@ import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import AllProductsScreen from "./screens/AllProductsScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />} />
+      <Route path="/products" element={<AllProductsScreen/>} />
       <Route path="/products/:id" element={<ProductScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />

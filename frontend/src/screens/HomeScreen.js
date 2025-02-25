@@ -12,7 +12,7 @@ const HomeScreen = () => {
   const { data, isLoading, error } = useGetProductsQuery({ keyword: searchTerm, pageNumber: page });
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   return (

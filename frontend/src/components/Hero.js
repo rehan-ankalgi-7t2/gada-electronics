@@ -2,8 +2,10 @@ import { Button } from "@mui/material";
 import React from "react";
 import { Col, Row, Image, Container } from "react-bootstrap";
 import JethalalPortrait from "../assets/images/jethalal.png";
+import { useNavigate } from "react-router";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -41,6 +43,7 @@ const Hero = () => {
               size="large"
               disableElevation
               className="mt-5"
+              onClick={() => navigate("/products")}
             >
               Check out all the products
             </Button>
