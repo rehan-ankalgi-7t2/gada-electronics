@@ -1,0 +1,67 @@
+# .github/workflows/deploy.yml
+name: Deploy Frontend and Backend to Render and create a new frontend release
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
+
+        - name: Install Dependencies
+          run: |
+                npm install
+
+        - name: Deploy Backend to Render
+          run: |
+                curl --request POST \
+                        --url https://api.render.com/v1/services/${{secrets.RENDER_BACKEND_SERVICE_ID}}/deploys \
+                        --header 'accept: application/json' \
+                        --header 'authorization: Bearer ${{secrets.RENDER_API_KEY}}' \
+                        --header 'content-type: application/json' \
+                        --data '
+                {
+                    "clearCache": "clear"
+                }
+                '
+
+        - name: Deploy Frontend to Render
+          run: |
+                curl --request POST \
+                        --url https://api.render.com/v1/services/${{secrets.RENDER_FRONTEND_SERVICE_ID}}/deploys \
+                        --header 'accept: application/json' \
+                        --header 'authorization: Bearer ${{secrets.RENDER_API_KEY}}' \
+                        --header 'content-type: application/json' \
+                        --data '
+                {
+                    "clearCache": "clear"
+                }
+                '
+    release:
+        needs: deploy
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+
+        - name: Generate Release Tag
+          id: version
+          run: |
+            VERSION="v1.0.$(date +%s)"
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "Generated Version: $VERSION"
+
+        - name: Create GitHub Release
+          uses: softprops/action-gh-release@v1
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            tag_name: ${{ env.VERSION }}
+            name: "Release ${{ env.VERSION }}"
+            body: "🚀 New deployment is live!"
+            draft: false
+            prerelease: false
