@@ -1,5 +1,4 @@
-# .github/workflows/deploy.yml
-name: Deploy Frontend and Backend to Render and create a new frontend release
+name: Deploy Frontend and Backend to Render and Create a New Release
 
 on:
     push:
@@ -9,6 +8,8 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        outputs:
+            frontend_url: ${{ steps.get_frontend_url.outputs.url }}  # Store Render URL
         steps:
         - name: Checkout Code
           uses: actions/checkout@v3
@@ -42,6 +43,7 @@ jobs:
                     "clearCache": "clear"
                 }
                 '
+
         - name: Get Frontend Deployment URL
           id: get_frontend_url
           run: |
