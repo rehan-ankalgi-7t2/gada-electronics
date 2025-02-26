@@ -9,6 +9,7 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
+import cors from 'cors';
 
 const __dirname = path.resolve();
 const app = express();
@@ -19,6 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
+app.use(cors({
+  credentials: true,
+  origin: ['https://gada-electronics-frontend.onrender.com/', 'http://localhost:5173', 'http://localhost:3000', '*'],
+  allowedHeaders: ['Origin', 'X-Requested-with', 'Content-Type', 'Accept', 'Authorization', 'ngrok-skip-browser-warning']
+}))
 
 app.get("/", (req, res) => {
   res.send("API is running");
