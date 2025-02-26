@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Button, TextField, FormControlLabel, Checkbox } from "@mui/material";
+import { Container } from "react-bootstrap";
+import { Button, TextField } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { useDispatch, useSelector } from "react-redux";

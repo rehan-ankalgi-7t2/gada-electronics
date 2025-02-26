@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 app.use(cors({
   credentials: true,
-  origin: ['https://gada-electronics-frontend.onrender.com/', 'http://localhost:5173', 'http://localhost:3000', '*'],
+  origin: ['https://gada-electronics-frontend.onrender.com', 'http://localhost:5173', 'http://localhost:3000', '*'],
   allowedHeaders: ['Origin', 'X-Requested-with', 'Content-Type', 'Accept', 'Authorization', 'ngrok-skip-browser-warning']
 }))
 
