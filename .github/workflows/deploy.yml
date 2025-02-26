@@ -42,6 +42,17 @@ jobs:
                     "clearCache": "clear"
                 }
                 '
+        - name: Get Frontend Deployment URL
+          id: get_frontend_url
+          run: |
+            FRONTEND_URL=$(curl --request GET \
+                        --url https://api.render.com/v1/services/${{secrets.RENDER_FRONTEND_SERVICE_ID}} \
+                        --header 'accept: application/json' \
+                        --header 'authorization: Bearer ${{secrets.RENDER_API_KEY}}' \
+                        | jq -r '.service.deploy.url')
+            echo "Frontend deployed at: $FRONTEND_URL"
+            echo "url=$FRONTEND_URL" >> $GITHUB_ENV
+
     release:
         needs: deploy
         runs-on: ubuntu-latest
@@ -62,6 +73,6 @@ jobs:
             token: ${{ secrets.GH_PAT }}
             tag_name: ${{ env.VERSION }}
             name: "Release ${{ env.VERSION }}"
-            body: "🚀 New deployment is live!"
+            body: "🚀 New deployment is live!\n🌍 Deployed URL: [Visit Site](${{ needs.deploy.outputs.frontend_url }})"
             draft: false
             prerelease: false
